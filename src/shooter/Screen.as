@@ -21,33 +21,19 @@ package shooter
 			
 		}
 		
-		public function keyDown(e:KeyboardEvent):void {
-			
-		}
-		
-		public function keyUp(e:KeyboardEvent):void {
-			
-		}
-		
-		public function touchMoved(e:TouchEvent):void {
-			
-		}
-		
-		public function touchBegan(e:TouchEvent):void {
-			
-		}
-		
-		public function touchHover(e:TouchEvent):void {
-			
-		}
-		
-		public function touchEnded(e:TouchEvent):void {
-
-		}
-		
-		public function touchStationary(e:TouchEvent):void {
-			
-		}
+		/*****
+		 *  Keyboard Handlers
+		 *      handleKeyDown(e:KeyboardEvent):void;
+		 * 		handleKeyUp(e:KeyboardEvent):void;
+		 *  Touch Handlers
+		 * 		handleTouchMoved(e:TouchEvent):void;
+		 * 		handleTouchBegan(e:TouchEvent):void;
+		 * 		handleTouchHover(e:TouchEvent):void;
+		 * 		handleTouchEnded(e:TouchEvent):void;
+		 * 		handleTouchStationary(e:TouchEvent):void;
+		 *   Update Handler
+		 * 		update(time:Number):void;
+		 */
 		
 	}
 }
