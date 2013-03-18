@@ -43,17 +43,23 @@ package shooter.tilemaps
 				layer.grid = grid;
 				mapData.layers.push(layer);
 			}
-			//No support polygon object.
 			mapData.objectGroups = new Dictionary();
 			for each(var g:XML in tmx.objectgroup){
-				var objects:Array = [];
+				var objects:Object = {properties: [], data:[]};
 				for each(var o:XML in g.object){
-					objects.push({
+					var obj:Object = {
 						name: String(o.@name), type: String(o.@type), 
 						x: int(o.@x), y: int(o.@y),
 						width: int(o.@width), height: int(o.@height)
-					});
+					};
+					if(o.polygon[0])
+						obj.points = String(o.polygon[0].@polygon)
+					else if(o.polyline[0])
+						obj.points = String(o.polyline[0].@polygon)
+					objects.data.push(obj);
 				}
+				for each(var p:XML in g.properties.property)
+					objects.properties.push({name: String(p.@name), value: String(p.@value)});
 				mapData.objectGroups[String(g.@name)] = objects;
 			}
 			return mapData;
