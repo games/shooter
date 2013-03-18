@@ -8,53 +8,71 @@ package shooter.tilemaps {
 
 			var open:Array = [], close:Array = [], openDict:Dictionary = new Dictionary(), closeDict:Dictionary = new Dictionary();
 
-			var h:Function = function(x:int, y:int):int {
+			var moveToOpen:Function = function(node:Object):void {
+				openDict[node.x + "," + node.y] = node;
+				open.push(node);
+			};
+
+			var moveToClose:Function = function(node:Object):void {
+				close.push(node);
+				closeDict[node.x + "," + node.y] = node;
+			};
+
+			var manhattan:Function = function(x:int, y:int):int {
 				return (Math.abs(target.x - x) + Math.abs(target.y - y)) * 10;
 			};
 
-			var s:Object = {x: start.x, y: start.y, parent: null, G: 0, F: 0};
-			s.F = s.H = h(start.x, start.y);
-			open.push(s);
+			var calculateScore:Function = function(node:Object, g:int):void {
+				node.G = g + node.parent.G;
+				node.F = node.G + manhattan(node.x, node.y);
+			};
 
-			var end:Object = null;
+			var available:Function = function(x:int, y:int):Boolean {
+				return !map.blocked(x, y) && closeDict[x + "," + y] == null;
+			};
+
+			var buildPath:Function = function(end:Object):Array {
+				var path:Array = [end];
+				while (end.parent) {
+					path.push(end.parent);
+					end = end.parent;
+				}
+				return path.reverse();
+			}
+
+
+			moveToOpen({x: start.x, y: start.y, parent: null, G: 0, F: manhattan(start.x, start.y)});
+
 			while (open.length > 0) {
 				open.sortOn("F", Array.NUMERIC | Array.DESCENDING);
 				var curr:Object = open.pop();
-				close.push(curr);
-				closeDict[curr.x + "," + curr.y] = curr;
+				moveToClose(curr);
 
 				for (var i:int = -1; i < 2; i++) {
 					for (var j:int = -1; j < 2; j++) {
 						if (i == 0 && j == 0)
 							continue;
-
 						var x:int = curr.x + i, y:int = curr.y + j;
-						var key:String = x + "," + y;
-						var gForCurrToNode:int = 10;
+						var g:int = 10;
 						//corner
 						if (i != 0 && j != 0) {
-							gForCurrToNode = 14;
 							if (map.blocked(curr.x, y) || map.blocked(x, curr.y))
 								continue;
+							g = 14;
 						}
 
 						if (x == target.x && y == target.y)
 							return buildPath({x: x, y: y, parent: curr});
 
-						if (!map.blocked(x, y) && closeDict[key] == null) {
-							var node:Object = openDict[key];
+						if (available(x, y)) {
+							var node:Object = openDict[x + "," + y];
 							if (!node) {
 								node = {x: x, y: y, parent: curr};
-								node.G = gForCurrToNode + curr.G;
-								node.H = h(node.x, node.y);
-								node.F = node.G + node.H;
-								openDict[key] = node;
-								open.push(node);
-							} else if (node.G > gForCurrToNode + curr.G) {
+								calculateScore(node, g);
+								moveToOpen(node);
+							} else if (node.G > g + curr.G) {
 								node.parent = curr;
-								node.G = gForCurrToNode + curr.G;
-								node.H = h(node.x, node.y);
-								node.F = node.G + node.H;
+								calculateScore(node, g);
 							}
 						}
 					}
@@ -62,16 +80,6 @@ package shooter.tilemaps {
 			}
 			return [];
 		}
-
-		private static function buildPath(end:Object):Array {
-			var path:Array = [end];
-			while (end.parent) {
-				path.push(end.parent);
-				end = end.parent;
-			}
-			return path.reverse();
-		}
-
 	}
 }
 
