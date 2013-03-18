@@ -23,6 +23,14 @@ package shooter.tilemaps {
 			builded = false;
 		}
 
+		public function stagePosToTilePos(x:int, y:int):Point {
+			return new Point(int((x + camera.viewport.x) / data.tileWidth), int((y + camera.viewport.y) / data.tileHeight));
+		}
+
+		public function blocked(x:int, y:int):Boolean {
+			return data.blocked(x, y);
+		}
+
 		override public function render(support:RenderSupport, parentAlpha:Number):void {
 			if (!builded) {
 				renderer.draw(this);

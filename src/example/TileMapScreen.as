@@ -1,6 +1,7 @@
 package example {
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
-
+	
 	import shooter.Camera;
 	import shooter.Inputs;
 	import shooter.Screen;
@@ -8,9 +9,11 @@ package example {
 	import shooter.tilemaps.MapRenderer;
 	import shooter.tilemaps.TMXParser;
 	import shooter.tilemaps.TileMap;
-
+	
 	import starling.core.Starling;
 	import starling.events.KeyboardEvent;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 
@@ -44,6 +47,14 @@ package example {
 
 			tileMap = new TileMap(camera, mapdata, new MapRenderer(), assets);
 			addChild(tileMap);
+		}
+		
+		public function handleTouchBegan(e:TouchEvent):void{
+			var touch:Touch = e.getTouch(stage);
+			if(touch){
+				var pos:Point = tileMap.stagePosToTilePos(touch.globalX, touch.globalY);
+				trace("block:", pos.x, pos.y, tileMap.blocked(pos.x, pos.y));
+			}
 		}
 
 		public function update(time:Number):void {

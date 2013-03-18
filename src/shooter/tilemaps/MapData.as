@@ -41,7 +41,7 @@ package shooter.tilemaps {
 			this.blocks = blocks;
 		}
 
-		public function block(x:int, y:int):Boolean {
+		public function blocked(x:int, y:int):Boolean {
 			return blocks[x + "," + y];
 		}
 
