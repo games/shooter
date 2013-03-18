@@ -3,6 +3,15 @@ shooter
 
 A game library.
 
+-- now --
+1) simple keyboard controller.
+2) basic tile map, camera, TMXParser.
+3) A-Star path finding.
+
+
+-- will --
+control player
+camera follow.
 
 
 -- TODO -------
