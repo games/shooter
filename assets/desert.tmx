@@ -2566,5 +2566,27 @@
    <property name="type" value="collision"/>
   </properties>
   <object x="372" y="181" width="384" height="284"/>
+  <object x="119" y="497" width="284" height="59"/>
+  <object x="430" y="501" width="419" height="57"/>
+  <object x="786" y="145" width="61" height="357"/>
+  <object x="199" y="235" width="14" height="10"/>
+  <object x="267" y="297" width="7" height="14"/>
+  <object x="236" y="364" width="7" height="12"/>
+  <object x="165" y="325" width="55" height="14"/>
+  <object x="174" y="396" width="41" height="10"/>
+  <object x="167" y="425" width="9" height="13"/>
+  <object x="233" y="428" width="10" height="12"/>
+  <object x="297" y="396" width="14" height="10"/>
+  <object x="103" y="361" width="13" height="10"/>
+  <object x="9" y="396" width="10" height="12"/>
+  <object x="42" y="426" width="10" height="13"/>
+  <object x="106" y="461" width="10" height="12"/>
+  <object x="74" y="586" width="9" height="12"/>
+  <object x="7" y="651" width="13" height="7"/>
+  <object x="141" y="617" width="9" height="10"/>
+  <object x="749" y="39" width="4" height="13"/>
+  <object x="745" y="104" width="13" height="13"/>
+  <object x="907" y="42" width="12" height="10"/>
+  <object x="942" y="138" width="6" height="13"/>
  </objectgroup>
 </map>

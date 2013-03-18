@@ -42,6 +42,8 @@ package shooter.tilemaps {
 		}
 
 		public function blocked(x:int, y:int):Boolean {
+			if (x < 0 || y < 0 || x > column || y > row)
+				return true;
 			return blocks[x + "," + y];
 		}
 
