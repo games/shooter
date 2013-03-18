@@ -22,9 +22,6 @@ package shooter
 		}
 		
 		/*****
-		 *  Keyboard Handlers
-		 *      handleKeyDown(e:KeyboardEvent):void;
-		 * 		handleKeyUp(e:KeyboardEvent):void;
 		 *  Touch Handlers
 		 * 		handleTouchMoved(e:TouchEvent):void;
 		 * 		handleTouchBegan(e:TouchEvent):void;

@@ -59,15 +59,11 @@ package shooter {
 		}
 
 		private function keyDownHandler(e:KeyboardEvent):void {
-			trace("keydown:", e);
 			(injector.getInstance(Inputs) as Inputs).press(e.keyCode);
-			handleMessage("handleKeyDown", e);
 		}
 
 		private function keyUpHandler(e:KeyboardEvent):void {
-			trace("keyup:", e);
 			(injector.getInstance(Inputs) as Inputs).release(e.keyCode);
-			handleMessage("handleKeyUp", e);
 		}
 
 		private function touchHandler(e:TouchEvent):void {
