@@ -18,13 +18,21 @@ package shooter.tilemaps {
 				closeDict[node.x + "," + node.y] = node;
 			};
 
-			var manhattan:Function = function(x:int, y:int):int {
-				return (Math.abs(target.x - x) + Math.abs(target.y - y)) * 10;
+			var manhattan:Function = function(x:int, y:int, cost:int = 10):int {
+				return (Math.abs(target.x - x) + Math.abs(target.y - y)) * cost;
 			};
+			
+			var euclidian:Function = function(x:int, y:int, cost:int = 10):int{
+				var dx:Number = x - target.x;
+				var dy:Number = y - target.y;
+				return Math.sqrt( dx * dx + dy * dy ) * cost;
+			};
+				
+			var heuristic:Function = manhattan;
 
 			var calculateScore:Function = function(node:Object, g:int):void {
 				node.G = g + node.parent.G;
-				node.F = node.G + manhattan(node.x, node.y);
+				node.F = node.G + heuristic(node.x, node.y);
 			};
 
 			var available:Function = function(x:int, y:int):Boolean {
@@ -41,8 +49,9 @@ package shooter.tilemaps {
 			}
 
 
-			moveToOpen({x: start.x, y: start.y, parent: null, G: 0, F: manhattan(start.x, start.y)});
+			moveToOpen({x: start.x, y: start.y, parent: null, G: 0, F: heuristic(start.x, start.y)});
 
+			var c:int =0;
 			while (open.length > 0) {
 				open.sortOn("F", Array.NUMERIC | Array.DESCENDING);
 				var curr:Object = open.pop();
@@ -53,6 +62,7 @@ package shooter.tilemaps {
 						if (i == 0 && j == 0)
 							continue;
 						var x:int = curr.x + i, y:int = curr.y + j;
+						trace("test:", x, y, ++c);
 						var g:int = 10;
 						//corner
 						if (i != 0 && j != 0) {
