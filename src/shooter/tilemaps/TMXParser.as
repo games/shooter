@@ -10,8 +10,8 @@ package shooter.tilemaps
 		public static function parse(tmx:XML):MapData{
 			var mapData:MapData = new MapData();
 			mapData.orientation = String(tmx.@orientation);
-			mapData.width = int(tmx.@width);
-			mapData.height = int(tmx.@height);
+			mapData.column = int(tmx.@width);
+			mapData.row = int(tmx.@height);
 			mapData.tileWidth = int(tmx.@tilewidth);
 			mapData.tileHeight = int(tmx.@tileheight);
 			mapData.textures = [];
@@ -45,7 +45,7 @@ package shooter.tilemaps
 			}
 			mapData.objectGroups = new Dictionary();
 			for each(var g:XML in tmx.objectgroup){
-				var objects:Object = {properties: [], data:[]};
+				var objectGroup:Object = {properties: new Dictionary(), data:[]};
 				for each(var o:XML in g.object){
 					var obj:Object = {
 						name: String(o.@name), type: String(o.@type), 
@@ -56,12 +56,13 @@ package shooter.tilemaps
 						obj.points = String(o.polygon[0].@polygon)
 					else if(o.polyline[0])
 						obj.points = String(o.polyline[0].@polygon)
-					objects.data.push(obj);
+					objectGroup.data.push(obj);
 				}
 				for each(var p:XML in g.properties.property)
-					objects.properties.push({name: String(p.@name), value: String(p.@value)});
-				mapData.objectGroups[String(g.@name)] = objects;
+					objectGroup.properties[String(p.@name)] = String(p.@value);
+				mapData.objectGroups[String(g.@name)] = objectGroup;
 			}
+			mapData.initialize();
 			return mapData;
 		}
 	}
