@@ -51,7 +51,6 @@ package shooter.tilemaps {
 
 			moveToOpen({x: start.x, y: start.y, parent: null, G: 0, F: heuristic(start.x, start.y)});
 
-			var c:int =0;
 			while (open.length > 0) {
 				open.sortOn("F", Array.NUMERIC | Array.DESCENDING);
 				var curr:Object = open.pop();
@@ -62,7 +61,6 @@ package shooter.tilemaps {
 						if (i == 0 && j == 0)
 							continue;
 						var x:int = curr.x + i, y:int = curr.y + j;
-						trace("test:", x, y, ++c);
 						var g:int = 10;
 						//corner
 						if (i != 0 && j != 0) {
