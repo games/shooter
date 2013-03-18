@@ -1,6 +1,6 @@
 package shooter {
 	import org.swiftsuspenders.Injector;
-	
+
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -17,8 +17,9 @@ package shooter {
 		public function Game() {
 			injector = new Injector();
 			injector.map(Game).toValue(this);
-			injector.map(Camera).asSingleton();
 			injector.map(AssetManager).asSingleton();
+			injector.map(Camera).asSingleton();
+			injector.map(Inputs).asSingleton();
 			initialize();
 			startup();
 			enableUpdate();
@@ -59,11 +60,13 @@ package shooter {
 
 		private function keyDownHandler(e:KeyboardEvent):void {
 			trace("keydown:", e);
+			(injector.getInstance(Inputs) as Inputs).press(e.keyCode);
 			handleMessage("handleKeyDown", e);
 		}
 
 		private function keyUpHandler(e:KeyboardEvent):void {
 			trace("keyup:", e);
+			(injector.getInstance(Inputs) as Inputs).release(e.keyCode);
 			handleMessage("handleKeyUp", e);
 		}
 
