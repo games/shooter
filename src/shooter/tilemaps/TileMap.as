@@ -1,22 +1,39 @@
 package shooter.tilemaps {
+	import flash.geom.Point;
+
+	import shooter.Camera;
+
 	import starling.core.RenderSupport;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 
 	public class TileMap extends Sprite {
-		private var data:MapData;
-		private var renderer:MapRenderer;
-		private var assets:AssetManager;
+		public var camera:Camera;
+		public var data:MapData;
+		public var renderer:MapRenderer;
+		public var assets:AssetManager;
+		public var builded:Boolean;
 
-		public function TileMap(data:MapData, renderer:MapRenderer, assets:AssetManager) {
+		public function TileMap(camera:Camera, data:MapData, renderer:MapRenderer, assets:AssetManager) {
+			this.camera = camera;
 			this.data = data;
 			this.renderer = renderer;
 			this.assets = assets;
+			builded = false;
 		}
 
-		public function build():void {
-			renderer.draw(this, data, assets);
+		override public function render(support:RenderSupport, parentAlpha:Number):void {
+			if (!builded) {
+				renderer.draw(this);
+				camera.bounds.setTo(x, y, width, height);
+				builded = true;
+			}
+			x = -camera.viewport.x;
+			y = -camera.viewport.y;
+			scaleX = scaleY = camera.zoom;
+			rotation = camera.rotation;
+			super.render(support, parentAlpha);
 		}
 	}
 }

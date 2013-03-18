@@ -1,21 +1,23 @@
 package shooter.tilemaps {
-	import shooter.Camera;
-	
+
+	import starling.display.BlendMode;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
-	import starling.display.Sprite;
 
 	public class MapRenderer {
-		private var camera:Camera;
 
-		public function MapRenderer(camera:Camera) {
-			this.camera = camera;
+		public function MapRenderer() {
 		}
 
-		public function draw(container:Sprite, data:MapData, assets:AssetManager):void {
-			container.removeChildren();
+		public function draw(tileMap:TileMap):void {
+			var data:MapData = tileMap.data;
+			var assets:AssetManager = tileMap.assets;
+			
+			tileMap.removeChildren();
+			tileMap.blendMode = BlendMode.NONE;
+			tileMap.touchable = false;
 			for each (var layer:Object in data.layers) {
 				var layerCanvas:QuadBatch = new QuadBatch();
 				var grid:Array = layer.grid;
@@ -34,10 +36,9 @@ package shooter.tilemaps {
 						}
 					}
 				}
-				layerCanvas.touchable = false;
-				container.addChild(layerCanvas);
+				tileMap.addChild(layerCanvas);
 			}
-			container.flatten();
+			tileMap.flatten();
 		}
 	}
 }

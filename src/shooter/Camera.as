@@ -1,33 +1,42 @@
 package shooter {
+	import flash.display.Stage;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
 	import starling.core.Starling;
-	import starling.display.Stage;
 
 	public class Camera {
 		public var zoom:Number;
-		public var position:Point;
 		public var rotation:Number;
-		public var size:Point;
-
-		private var _bounds:Rectangle;
+		public var viewport:Rectangle;
+		public var bounds:Rectangle;
 
 		public function Camera() {
-			var stage:Stage = Starling.current.stage;
 			zoom = 1.0;
-			position = new Point(stage.width * 0.5, stage.height * 0.5);
-			size = new Point(stage.width, stage.height);
-			rotation = 1.0;
-			adjust();
+			rotation = 0;
+			viewport = Starling.current.viewPort.clone();
+			bounds = viewport.clone();
 		}
 
-		public function get bounds():Rectangle {
-			return _bounds;
+		public function get center():Point {
+			return new Point(viewport.x + viewport.width / 2, viewport.y + viewport.height / 2);
 		}
 
-		public function adjust():void {
-			_bounds = new Rectangle(size.x * 0.5 - position.x, size.y * 0.5 - position.y);
+		public function move(offsetX:Number, offsetY:Number):void {
+			viewport.x = testBounds(viewport.x, offsetX, viewport.width, bounds.left, bounds.right);
+			viewport.y = testBounds(viewport.y, offsetY, viewport.height, bounds.top, bounds.bottom);
+		}
+
+		private function testBounds(origin:Number, offset:Number, viewSize:Number, boundsLeft:Number, boundsRight:Number):Number {
+			var viewLeft:Number = origin + offset;
+			var viewRight:Number = viewLeft + viewSize;
+			if (viewLeft > boundsLeft && viewRight < boundsRight)
+				return viewLeft;
+			else if (viewLeft <= boundsLeft)
+				return boundsLeft;
+			else if (viewRight >= boundsRight)
+				return boundsRight - viewSize;
+			return origin;
 		}
 	}
 }

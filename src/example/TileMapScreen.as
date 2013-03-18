@@ -1,11 +1,16 @@
 package example {
+	import flash.ui.Keyboard;
+
 	import shooter.Camera;
+	import shooter.Inputs;
 	import shooter.Screen;
 	import shooter.tilemaps.MapData;
 	import shooter.tilemaps.MapRenderer;
 	import shooter.tilemaps.TMXParser;
 	import shooter.tilemaps.TileMap;
 
+	import starling.core.Starling;
+	import starling.events.KeyboardEvent;
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 
@@ -19,8 +24,14 @@ package example {
 
 		[Inject]
 		public var camera:Camera;
+
 		[Inject]
 		public var assets:AssetManager;
+
+		[Inject]
+		public var inputs:Inputs;
+
+		private var tileMap:TileMap;
 
 		public function TileMapScreen() {
 			super();
@@ -28,19 +39,26 @@ package example {
 		}
 
 		override public function enter():void {
-
 			assets.addTexture("desert_spacing.png", Texture.fromBitmap(new desertSpacing()));
-
 			var mapdata:MapData = TMXParser.parse(XML(new mapConfig()));
 
-			var tileMap:TileMap = new TileMap(mapdata, new MapRenderer(camera), assets);
-			tileMap.build();
-			tileMap.x = 100;
-			tileMap.y = 100;
+			tileMap = new TileMap(camera, mapdata, new MapRenderer(), assets);
 			addChild(tileMap);
 		}
 
 		public function update(time:Number):void {
+			var speed:Number = 5;
+			var cx:Number = 0;
+			var cy:Number = 0;
+			if (inputs.pressed(Keyboard.UP))
+				cy = -speed;
+			else if (inputs.pressed(Keyboard.DOWN))
+				cy = speed;
+			else if (inputs.pressed(Keyboard.LEFT))
+				cx = -speed;
+			else if (inputs.pressed(Keyboard.RIGHT))
+				cx = speed;
+			camera.move(cx, cy);
 		}
 
 	}
