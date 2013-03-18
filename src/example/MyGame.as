@@ -11,6 +11,7 @@ package example {
 			injector.map(ScreenTop);
 			injector.map(ParticleScreen);
 			injector.map(TileMapScreen);
+			injector.map(PathfindingScreen);
 
 			enableKeyboardHandlers();
 			enableTouchHandler();
@@ -20,7 +21,8 @@ package example {
 //			push(ScreenThree);
 //			push(ScreenSecond);
 //			push(ScreenTop);
-			push(TileMapScreen);
+//			push(TileMapScreen);
+			push(PathfindingScreen);
 		}
 	}
 }
