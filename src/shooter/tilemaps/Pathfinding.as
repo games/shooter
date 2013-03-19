@@ -4,6 +4,9 @@ package shooter.tilemaps {
 
 	public class Pathfinding {
 
+		/**
+		 * Will use BinaryHeap to sort.
+		 */
 		public static function find(map:MapData, start:Point, target:Point):Array {
 
 			var open:Array = [], close:Array = [], openDict:Dictionary = new Dictionary(), closeDict:Dictionary = new Dictionary();
@@ -21,13 +24,13 @@ package shooter.tilemaps {
 			var manhattan:Function = function(x:int, y:int, cost:int = 10):int {
 				return (Math.abs(target.x - x) + Math.abs(target.y - y)) * cost;
 			};
-			
-			var euclidian:Function = function(x:int, y:int, cost:int = 10):int{
+
+			var euclidian:Function = function(x:int, y:int, cost:int = 10):int {
 				var dx:Number = x - target.x;
 				var dy:Number = y - target.y;
-				return Math.sqrt( dx * dx + dy * dy ) * cost;
+				return Math.sqrt(dx * dx + dy * dy) * cost;
 			};
-				
+
 			var heuristic:Function = manhattan;
 
 			var calculateScore:Function = function(node:Object, g:int):void {
@@ -61,14 +64,11 @@ package shooter.tilemaps {
 						if (i == 0 && j == 0)
 							continue;
 						var x:int = curr.x + i, y:int = curr.y + j;
-						var g:int = 10;
-						//corner
-						if (i != 0 && j != 0) {
-							if (map.blocked(curr.x, y) || map.blocked(x, curr.y))
-								continue;
-							g = 14;
-						}
+						var corner:Boolean = i != 0 && j != 0;
+						if (corner && (map.blocked(curr.x, y) || map.blocked(x, curr.y)))
+							continue;
 
+						var g:int = corner ? 14 : 10;
 						if (x == target.x && y == target.y)
 							return buildPath({x: x, y: y, parent: curr});
 
