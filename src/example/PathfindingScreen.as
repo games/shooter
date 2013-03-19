@@ -58,7 +58,7 @@ package example {
 			start = new Point(5, 5);
 		}
 
-		public function handleTouchBegan(e:TouchEvent):void {
+		override public function handleTouchBegan(e:TouchEvent):void {
 			var touch:Touch = e.getTouch(stage);
 			if (touch) {
 				var pos:Point = tileMap.stagePosToTilePos(touch.globalX, touch.globalY);

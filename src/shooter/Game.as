@@ -1,6 +1,6 @@
 package shooter {
 	import org.swiftsuspenders.Injector;
-
+	
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -8,11 +8,11 @@ package shooter {
 	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
 	import starling.utils.AssetManager;
 
 	public class Game extends Sprite implements IAnimatable {
 		protected var injector:Injector;
+		private var camera:Camera;
 
 		public function Game() {
 			injector = new Injector();
@@ -20,6 +20,9 @@ package shooter {
 			injector.map(AssetManager).asSingleton();
 			injector.map(Camera).asSingleton();
 			injector.map(Inputs).asSingleton();
+
+			camera = injector.getInstance(Camera);
+
 			initialize();
 			startup();
 			enableUpdate();
@@ -103,6 +106,7 @@ package shooter {
 		}
 
 		public function advanceTime(time:Number):void {
+			camera.update(time);
 			handleMessage("update", time);
 		}
 	}

@@ -19,7 +19,7 @@ package example
 			quad = addChild(new Quad(20, 20, 0x00ffff)) as Quad;
 		}
 		
-		public function handleTouchMoved(e:TouchEvent):void{
+		override public function handleTouchMoved(e:TouchEvent):void{
 			var touch:Touch = e.getTouch(stage);
 			quad.x = touch.globalX + 20;
 			quad.y = touch.globalY + 20;

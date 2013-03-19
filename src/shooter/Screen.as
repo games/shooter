@@ -1,36 +1,48 @@
-package shooter
-{
+package shooter {
 	import starling.display.Sprite;
 	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
-	
+
 	public class Screen extends Sprite implements IState {
-		
+
 		public var blockMessage:Boolean = true;
-	
+
 		public function Screen() {
 			super();
 		}
-		
-		public function enter():void{
-			
+
+		public function enter():void {
+
 		}
-		
-		public function exit():void{
-			
+
+		public function exit():void {
+
 		}
-		
-		/*****
-		 *  Touch Handlers
-		 * 		handleTouchMoved(e:TouchEvent):void;
-		 * 		handleTouchBegan(e:TouchEvent):void;
-		 * 		handleTouchHover(e:TouchEvent):void;
-		 * 		handleTouchEnded(e:TouchEvent):void;
-		 * 		handleTouchStationary(e:TouchEvent):void;
-		 *   Update Handler
-		 * 		update(time:Number):void;
-		 */
-		
+
+		public function handleTouchMoved(e:TouchEvent):void {
+
+		}
+
+		public function handleTouchBegan(e:TouchEvent):void {
+
+		}
+
+		public function handleTouchHover(e:TouchEvent):void {
+
+		}
+
+		public function handleTouchEnded(e:TouchEvent):void {
+
+		}
+
+		public function handleTouchStationary(e:TouchEvent):void {
+
+		}
+
+		public function update(elapse:Number):void {
+
+		}
+
 	}
 }

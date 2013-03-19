@@ -4,12 +4,14 @@ package shooter {
 	import flash.geom.Rectangle;
 
 	import starling.core.Starling;
+	import starling.display.DisplayObject;
 
 	public class Camera {
 		public var zoom:Number;
 		public var rotation:Number;
 		public var viewport:Rectangle;
 		public var bounds:Rectangle;
+		public var monitor:*;
 
 		public function Camera() {
 			zoom = 1.0;
@@ -27,6 +29,11 @@ package shooter {
 			viewport.y = testBounds(viewport.y, offsetY, viewport.height, bounds.top, bounds.bottom);
 		}
 
+		public function lookAt(x:Number, y:Number):void {
+			var pos:Point = center;
+			move(x - pos.x, y - pos.y);
+		}
+
 		private function testBounds(origin:Number, offset:Number, viewSize:Number, boundsLeft:Number, boundsRight:Number):Number {
 			var viewLeft:Number = origin + offset;
 			var viewRight:Number = viewLeft + viewSize;
@@ -37,6 +44,11 @@ package shooter {
 			else if (viewRight >= boundsRight)
 				return boundsRight - viewSize;
 			return origin;
+		}
+
+		public function update(time:Number):void {
+			if (monitor)
+				lookAt(monitor.position.x, monitor.position.y);
 		}
 	}
 }

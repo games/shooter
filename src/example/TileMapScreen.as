@@ -51,43 +51,9 @@ package example {
 
 			tileMap = new TileMap(camera, mapdata, new MapRenderer(), assets);
 			addChild(tileMap);
-
-
-
-			road = new Sprite();
-			addChild(road);
-
-			start = new Point(5, 5);
 		}
 
-		private var road:Sprite;
-		private var start:Point;
-
-		public function handleTouchBegan(e:TouchEvent):void {
-			var touch:Touch = e.getTouch(stage);
-			if (touch) {
-				var pos:Point = tileMap.stagePosToTilePos(touch.globalX, touch.globalY);
-				if (!tileMap.blocked(pos.x, pos.y)) {
-					var path:Array = Pathfinding.find(tileMap.data, start, pos);
-					road.removeChildren();
-					var i:int = 0;
-					for each (var node:Object in path) {
-						var s:Sprite = new Sprite();
-						var quad:Quad = new Quad(32, 32, 0xff0000);
-						s.x = node.x * 32;
-						s.y = node.y * 32;
-						s.addChild(quad);
-						var t:TextField = new TextField(32, 20, i.toString());
-						s.addChild(t);
-						i++;
-						road.addChild(s);
-					}
-					start = pos;
-				}
-			}
-		}
-
-		public function update(time:Number):void {
+		override public function update(time:Number):void {
 			var speed:Number = 5;
 			var cx:Number = 0;
 			var cy:Number = 0;
