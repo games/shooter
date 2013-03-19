@@ -1,6 +1,6 @@
 package example {
 	import org.swiftsuspenders.Injector;
-
+	
 	import shooter.Game;
 	import shooter.Screen;
 
@@ -12,6 +12,7 @@ package example {
 			injector.map(ParticleScreen);
 			injector.map(TileMapScreen);
 			injector.map(PathfindingScreen);
+			injector.map(CameraFollowScreen);
 
 			enableKeyboardHandlers();
 			enableTouchHandler();
@@ -22,7 +23,8 @@ package example {
 //			push(ScreenSecond);
 //			push(ScreenTop);
 //			push(TileMapScreen);
-			push(PathfindingScreen);
+//			push(PathfindingScreen);
+			replace(CameraFollowScreen);
 		}
 	}
 }

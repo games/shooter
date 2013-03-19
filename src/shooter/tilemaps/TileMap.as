@@ -4,6 +4,8 @@ package shooter.tilemaps {
 	import shooter.Camera;
 
 	import starling.core.RenderSupport;
+	import starling.display.BlendMode;
+	import starling.display.DisplayObject;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
@@ -13,14 +15,23 @@ package shooter.tilemaps {
 		public var data:MapData;
 		public var renderer:MapRenderer;
 		public var assets:AssetManager;
-		public var builded:Boolean;
+		public var tilesLayer:QuadBatch;
+		public var itemsLayer:Sprite;
+		private var present:Function;
 
 		public function TileMap(camera:Camera, data:MapData, renderer:MapRenderer, assets:AssetManager) {
 			this.camera = camera;
 			this.data = data;
 			this.renderer = renderer;
 			this.assets = assets;
-			builded = false;
+			tilesLayer = new QuadBatch();
+			itemsLayer = new Sprite();
+			tilesLayer.blendMode = BlendMode.NONE;
+			tilesLayer.touchable = false;
+			present = build;
+
+			addChild(tilesLayer);
+			addChild(itemsLayer);
 		}
 
 		public function stagePosToTilePos(x:int, y:int):Point {
@@ -31,16 +42,25 @@ package shooter.tilemaps {
 			return data.blocked(x, y);
 		}
 
-		override public function render(support:RenderSupport, parentAlpha:Number):void {
-			if (!builded) {
-				renderer.draw(this);
-				camera.bounds.setTo(x, y, width, height);
-				builded = true;
-			}
+		public function addItem(child:DisplayObject):void {
+			itemsLayer.addChild(child);
+		}
+
+		private function build():void {
+			renderer.draw(data, assets, tilesLayer);
+			camera.bounds.setTo(0, 0, tilesLayer.width, tilesLayer.height);
+			present = draw;
+		}
+
+		private function draw():void {
 			x = -camera.viewport.x;
 			y = -camera.viewport.y;
 			scaleX = scaleY = camera.zoom;
 			rotation = camera.rotation;
+		}
+
+		override public function render(support:RenderSupport, parentAlpha:Number):void {
+			present();
 			super.render(support, parentAlpha);
 		}
 	}

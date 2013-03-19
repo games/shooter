@@ -11,17 +11,13 @@ package shooter {
 		public var rotation:Number;
 		public var viewport:Rectangle;
 		public var bounds:Rectangle;
-		public var monitor:*;
+		private var _monitor:*;
 
 		public function Camera() {
 			zoom = 1.0;
 			rotation = 0;
 			viewport = Starling.current.viewPort.clone();
 			bounds = viewport.clone();
-		}
-
-		public function get center():Point {
-			return new Point(viewport.x + viewport.width / 2, viewport.y + viewport.height / 2);
 		}
 
 		public function move(offsetX:Number, offsetY:Number):void {
@@ -32,6 +28,11 @@ package shooter {
 		public function lookAt(x:Number, y:Number):void {
 			var pos:Point = center;
 			move(x - pos.x, y - pos.y);
+		}
+		
+		public function update(time:Number):void {
+			if (_monitor)
+				lookAt(_monitor.x, _monitor.y);
 		}
 
 		private function testBounds(origin:Number, offset:Number, viewSize:Number, boundsLeft:Number, boundsRight:Number):Number {
@@ -45,10 +46,14 @@ package shooter {
 				return boundsRight - viewSize;
 			return origin;
 		}
-
-		public function update(time:Number):void {
-			if (monitor)
-				lookAt(monitor.position.x, monitor.position.y);
+		
+		public function set monitor(val:*):void{
+			_monitor = val;
+			lookAt(_monitor.x, _monitor.y);
+		}
+		
+		public function get center():Point {
+			return new Point(viewport.x + viewport.width / 2, viewport.y + viewport.height / 2);
 		}
 	}
 }

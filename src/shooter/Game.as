@@ -38,7 +38,7 @@ package shooter {
 		protected function enableUpdate():void {
 			Starling.current.juggler.add(this);
 		}
-
+		
 		protected function disableUpdate():void {
 			Starling.current.juggler.remove(this);
 		}

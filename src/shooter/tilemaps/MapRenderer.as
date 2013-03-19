@@ -1,6 +1,5 @@
 package shooter.tilemaps {
 
-	import starling.display.BlendMode;
 	import starling.display.Image;
 	import starling.display.QuadBatch;
 	import starling.textures.Texture;
@@ -11,15 +10,9 @@ package shooter.tilemaps {
 		public function MapRenderer() {
 		}
 
-		public function draw(tileMap:TileMap):void {
-			var data:MapData = tileMap.data;
-			var assets:AssetManager = tileMap.assets;
-			
-			tileMap.removeChildren();
-			tileMap.blendMode = BlendMode.NONE;
-			tileMap.touchable = false;
+		public function draw(data:MapData, assets:AssetManager, tilesLayer:QuadBatch):void {
+			tilesLayer.reset();
 			for each (var layer:Object in data.layers) {
-				var layerCanvas:QuadBatch = new QuadBatch();
 				var grid:Array = layer.grid;
 				for (var row:int = 0; row < grid.length; row++) {
 					var rows:Array = grid[row];
@@ -32,13 +25,11 @@ package shooter.tilemaps {
 							var img:Image = new Image(tileTexture);
 							img.x = col * data.tileWidth;
 							img.y = row * data.tileHeight;
-							layerCanvas.addImage(img);
+							tilesLayer.addImage(img);
 						}
 					}
 				}
-				tileMap.addChild(layerCanvas);
 			}
-			tileMap.flatten();
 		}
 	}
 }
