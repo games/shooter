@@ -19,28 +19,6 @@ package shooter.tilemaps {
 			tileInfoCache = new Dictionary();
 		}
 
-		public function initialize():void {
-			var blocks:Dictionary = new Dictionary();
-			var width:int = column * tileWidth;
-			var height:int = row * tileHeight;
-			for each (var group:Object in objectGroups) {
-				var type:String = group.properties["type"];
-				if (type == "collision") {
-					for each (var data:Object in group.data) {
-						var startX:int = data.x / tileWidth;
-						var startY:int = data.y / tileHeight;
-						var endX:int = (data.x + data.width) / tileWidth;
-						var endY:int = (data.y + data.height) / tileHeight;
-						for (var i:int = startX; i <= endX; i++) {
-							for (var j:int = startY; j <= endY; j++)
-								blocks[i + "," + j] = true;
-						}
-					}
-				}
-			}
-			this.blocks = blocks;
-		}
-
 		public function blocked(x:int, y:int):Boolean {
 			if (x < 0 || y < 0 || x > column || y > row)
 				return true;

@@ -62,7 +62,27 @@ package shooter.tilemaps
 					objectGroup.properties[String(p.@name)] = String(p.@value);
 				mapData.objectGroups[String(g.@name)] = objectGroup;
 			}
-			mapData.initialize();
+			
+			//initialize collision.
+			var blocks:Dictionary = new Dictionary();
+			var width:int = mapData.column * mapData.tileWidth;
+			var height:int = row * mapData.tileHeight;
+			for each (var group:Object in mapData.objectGroups) {
+				var type:String = group.properties["type"];
+				if (type == "collision") {
+					for each (var data:Object in group.data) {
+						var startX:int = data.x / mapData.tileWidth;
+						var startY:int = data.y / mapData.tileHeight;
+						var endX:int = (data.x + data.width) / mapData.tileWidth;
+						var endY:int = (data.y + data.height) / mapData.tileHeight;
+						for (var i:int = startX; i <= endX; i++) {
+							for (var j:int = startY; j <= endY; j++)
+								blocks[i + "," + j] = true;
+						}
+					}
+				}
+			}
+			mapData.blocks = blocks;
 			return mapData;
 		}
 	}
