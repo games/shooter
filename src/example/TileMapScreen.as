@@ -49,7 +49,7 @@ package example {
 			assets.addTexture("desert_spacing.png", Texture.fromBitmap(new desertSpacing()));
 			var mapdata:MapData = TMXParser.parse(XML(new mapConfig()));
 
-			tileMap = new TileMap(camera, mapdata, new MapRenderer(), assets);
+			tileMap = new TileMap(camera, mapdata, assets);
 			addChild(tileMap);
 		}
 

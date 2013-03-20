@@ -26,13 +26,10 @@ package shooter.tilemaps
 				textureDef.count = int(textureDef.width * textureDef.height);
 				mapData.textures.push(textureDef);
 			}
-			mapData.layers = [];
+			mapData.layers = new Vector.<LayerDef>();
 			for each(var l:XML in tmx.layer){
-				var layer:Object = {
-					name: String(l.@name),
-					width: int(l.@width), height: int(l.@height)
-				};
-				var grid:Array = [];
+				var layer:LayerDef = new LayerDef(String(l.@name), int(l.@width), int(l.@height), []);
+				var grid:Array = layer.grid;
 				for(var row:int = 0; row < layer.height; row++){
 					var rows:Array = [];
 					for(var col:int = 0; col < layer.width; col++){
@@ -40,7 +37,6 @@ package shooter.tilemaps
 					}
 					grid[row] = rows;
 				}
-				layer.grid = grid;
 				mapData.layers.push(layer);
 			}
 			mapData.objectGroups = new Dictionary();
@@ -64,7 +60,7 @@ package shooter.tilemaps
 			}
 			
 			//initialize collision.
-			var blocks:Dictionary = new Dictionary();
+			var blocks:Dictionary = mapData.blocks;
 			var width:int = mapData.column * mapData.tileWidth;
 			var height:int = row * mapData.tileHeight;
 			for each (var group:Object in mapData.objectGroups) {
@@ -82,7 +78,6 @@ package shooter.tilemaps
 					}
 				}
 			}
-			mapData.blocks = blocks;
 			return mapData;
 		}
 	}

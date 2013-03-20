@@ -12,20 +12,22 @@ package shooter.tilemaps {
 
 		public function draw(data:MapData, assets:AssetManager, tilesLayer:QuadBatch):void {
 			tilesLayer.reset();
-			for each (var layer:Object in data.layers) {
+			for each (var layer:LayerDef in data.layers) {
 				var grid:Array = layer.grid;
 				for (var row:int = 0; row < grid.length; row++) {
 					var rows:Array = grid[row];
 					for (var col:int = 0; col < rows.length; col++) {
 						var tileId:int = rows[col];
 						if (tileId > 0) {
-							var tileInfo:Object = data.getTileById(tileId);
-							var texture:Texture = assets.getTexture(tileInfo.texture);
-							var tileTexture:Texture = Texture.fromTexture(texture, tileInfo.region);
-							var img:Image = new Image(tileTexture);
-							img.x = col * data.tileWidth;
-							img.y = row * data.tileHeight;
-							tilesLayer.addImage(img);
+							var tileDef:TileDef = data.getTileById(tileId);
+							if (tileDef) {
+								var texture:Texture = assets.getTexture(tileDef.texture);
+								var tileTexture:Texture = Texture.fromTexture(texture, tileDef.region);
+								var img:Image = new Image(tileTexture);
+								img.x = col * data.tileWidth;
+								img.y = row * data.tileHeight;
+								tilesLayer.addImage(img);
+							}
 						}
 					}
 				}

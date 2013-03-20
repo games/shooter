@@ -1,8 +1,8 @@
 package shooter.tilemaps {
 	import flash.geom.Point;
-
+	
 	import shooter.Camera;
-
+	
 	import starling.core.RenderSupport;
 	import starling.display.BlendMode;
 	import starling.display.DisplayObject;
@@ -19,10 +19,10 @@ package shooter.tilemaps {
 		public var itemsLayer:Sprite;
 		private var present:Function;
 
-		public function TileMap(camera:Camera, data:MapData, renderer:MapRenderer, assets:AssetManager) {
+		public function TileMap(camera:Camera, data:MapData, assets:AssetManager, renderer:MapRenderer = null) {
 			this.camera = camera;
 			this.data = data;
-			this.renderer = renderer;
+			this.renderer = renderer || new MapRenderer();
 			this.assets = assets;
 			tilesLayer = new QuadBatch();
 			itemsLayer = new Sprite();

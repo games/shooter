@@ -13,6 +13,7 @@ package example {
 			injector.map(TileMapScreen);
 			injector.map(PathfindingScreen);
 			injector.map(CameraFollowScreen);
+			injector.map(DungeonScreen);
 
 			enableKeyboardHandlers();
 			enableTouchHandler();
@@ -25,7 +26,8 @@ package example {
 //			push(TileMapScreen);
 //			push(PathfindingScreen);
 //			replace(CameraFollowScreen);
-			replace(ParticleScreen);
+//			replace(ParticleScreen);
+			replace(DungeonScreen);
 		}
 	}
 }

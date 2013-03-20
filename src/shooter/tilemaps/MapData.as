@@ -9,14 +9,14 @@ package shooter.tilemaps {
 		public var tileWidth:int;
 		public var tileHeight:int;
 		public var textures:Array;
-		public var layers:Array;
+		public var layers:Vector.<LayerDef>;
 		public var objectGroups:Dictionary;
 		public var blocks:Dictionary;
-
-		private var tileInfoCache:Dictionary;
+		public var tileDefs:Dictionary;
 
 		public function MapData() {
-			tileInfoCache = new Dictionary();
+			tileDefs = new Dictionary();
+			blocks = new Dictionary();
 		}
 
 		public function blocked(x:int, y:int):Boolean {
@@ -25,16 +25,16 @@ package shooter.tilemaps {
 			return blocks[x + "," + y];
 		}
 
-		public function getTileById(tileId:int):Object {
-			if (tileInfoCache[tileId])
-				return tileInfoCache[tileId];
+		public function getTileById(tileId:int):TileDef {
+			if (tileDefs[tileId])
+				return tileDefs[tileId];
 
 			var index:int = tileId;
 			for each (var texture:Object in textures) {
 				if (index <= texture.count) {
 					index--;
-					var tileInfo:Object = {texture: texture.source, region: new Rectangle(int(index % texture.width) * (tileWidth + texture.spacing) + texture.margin, int(index / texture.width) * (tileHeight + texture.spacing) + texture.margin, tileWidth, tileHeight)};
-					tileInfoCache[tileId] = tileInfo;
+					var tileInfo:TileDef = new TileDef(texture.source, new Rectangle(int(index % texture.width) * (tileWidth + texture.spacing) + texture.margin, int(index / texture.width) * (tileHeight + texture.spacing) + texture.margin, tileWidth, tileHeight));
+					tileDefs[tileId] = tileInfo;
 					return tileInfo;
 				} else {
 					index -= texture.count;
