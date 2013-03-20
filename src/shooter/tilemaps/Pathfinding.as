@@ -67,12 +67,12 @@ package shooter.tilemaps {
 						var corner:Boolean = i != 0 && j != 0;
 						if (corner && (map.blocked(curr.x, y) || map.blocked(x, curr.y)))
 							continue;
-
-						var g:int = corner ? 14 : 10;
+						
 						if (x == target.x && y == target.y)
 							return buildPath({x: x, y: y, parent: curr});
 
 						if (available(x, y)) {
+							var g:int = corner ? 14 : 10;
 							var node:Object = openDict[x + "," + y];
 							if (!node) {
 								node = {x: x, y: y, parent: curr};
