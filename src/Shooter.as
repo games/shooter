@@ -7,7 +7,7 @@ package {
 
 	import starling.core.Starling;
 
-	[SWF(width = "640", height = "480", frameRate = "60", backgroundColor = "#ffffff")]
+	[SWF(width = "640", height = "480", frameRate = "60", backgroundColor = "#000000")]
 	public class Shooter extends Sprite {
 		public function Shooter() {
 			stage.scaleMode = StageScaleMode.NO_SCALE;

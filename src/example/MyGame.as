@@ -24,7 +24,8 @@ package example {
 //			push(ScreenTop);
 //			push(TileMapScreen);
 //			push(PathfindingScreen);
-			replace(CameraFollowScreen);
+//			replace(CameraFollowScreen);
+			replace(ParticleScreen);
 		}
 	}
 }
