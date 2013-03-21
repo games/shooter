@@ -10,6 +10,7 @@ package threeshooter.dungeonadventure {
 	import shooter.tilemaps.TileMap;
 	
 	import starling.core.Starling;
+	import starling.display.MovieClip;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.extensions.PDParticleSystem;
@@ -29,7 +30,8 @@ package threeshooter.dungeonadventure {
 		public var assets:AssetManager;
 		[Inject]
 		public var camera:Camera;
-
+		[Embed(source = "../../../assets/Actor1.png")]
+		public static const actorClass:Class;
 		[Embed(source = "../../../assets/desert_spacing.png")]
 		public static const desertSpacing:Class;
 		[Embed(source = "../../../assets/particle.pex", mimeType = "application/octet-stream")]
@@ -39,6 +41,7 @@ package threeshooter.dungeonadventure {
 
 		private var tileMap:TileMap;
 		private var ps:PDParticleSystem;
+		private var actor:MovieClip;
 
 		public function DungeonScreen() {
 			super();
@@ -49,7 +52,8 @@ package threeshooter.dungeonadventure {
 		}
 
 		public function handleEnterdungeonsucceed(content:Object):void {
-			assets.addTexture("desert_spacing.png", Texture.fromBitmap(new desertSpacing()));
+			assets.addTexture("Actor1", Texture.fromBitmap(new actorClass()));
+			assets.addTexture("desert_spacing", Texture.fromBitmap(new desertSpacing()));
 
 			var mapData:MapData = new MapData();
 			mapData.layers = new Vector.<LayerDef>();
@@ -60,23 +64,20 @@ package threeshooter.dungeonadventure {
 				for (var col:int = 0; col < content.col; col++) {
 					if ((content.start.x == row && content.start.y == col) || (content.end.x == row && content.end.y == col))
 						rows.push(2);
-					else
+					else {
 						rows.push(1);
+						mapData.blocks[col + "," + row] = true;
+					}
 				}
 				grid[row] = rows;
 			}
 
 			mapData.layers.push(new LayerDef("dungeon", content.col, content.row, grid));
 
-			mapData.tileDefs[1] = new TileDef("desert_spacing.png", new Rectangle(34, 34, 32, 32));
-			mapData.tileDefs[2] = new TileDef("desert_spacing.png", new Rectangle(166, 100, 32, 32));
+			mapData.tileDefs[1] = new TileDef("desert_spacing", new Rectangle(34, 34, 32, 32));
+			mapData.tileDefs[2] = new TileDef("desert_spacing", new Rectangle(166, 100, 32, 32));
 			mapData.tileWidth = 32;
 			mapData.tileHeight = 32;
-
-			mapData.blocks["0,0"] = true;
-			mapData.blocks["1,0"] = true;
-			mapData.blocks["1,1"] = true;
-			mapData.blocks["3,4"] = true;
 
 			tileMap = new TileMap(camera, mapData, assets);
 			addChild(tileMap);
@@ -87,6 +88,19 @@ package threeshooter.dungeonadventure {
 			ps = new PDParticleSystem(config, texture);
 			addChild(ps);
 			Starling.juggler.add(ps);
+			
+			var actorTextures:Vector.<Texture> = new Vector.<Texture>();
+			for(var i:int = 0; i < 3; i++){
+				var frame1:Texture = Texture.fromTexture(assets.getTexture("Actor1"), new Rectangle(i * 32, 0, 32, 32));
+				actorTextures.push(frame1);
+			}
+			
+			actor = new MovieClip(actorTextures, 8);
+			var pos:Point = tileMap.tilePosToStagePos(content.start.x, content.start.y);
+			actor.x = pos.x - 16;
+			actor.y = pos.y - 16;
+			tileMap.addItem(actor);
+			Starling.juggler.add(actor);
 		}
 
 		override public function handleTouchBegan(e:TouchEvent):void {
@@ -102,8 +116,8 @@ package threeshooter.dungeonadventure {
 			ps.x = pos.x;
 			ps.y = pos.y;
 			ps.start(0.1);
+			tileMap.data.blocks[content.x + "," + content.y] = false;
 			tileMap.replace(content.x, content.y, 2);
-			
 		}
 	}
 }
