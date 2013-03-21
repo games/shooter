@@ -72,11 +72,11 @@ package shooter {
 		private function touchHandler(e:TouchEvent):void {
 			var touch:Touch = e.getTouch(stage);
 			if (touch)
-				handleMessage("handleTouch" + touch.phase.charAt(0).toUpperCase() + touch.phase.substr(1), e);
+				broadcastMessage("handleTouch" + touch.phase.charAt(0).toUpperCase() + touch.phase.substr(1), e);
 
 		}
 
-		private function handleMessage(handler:String, ... params):void {
+		public function broadcastMessage(handler:String, ... params):void {
 			for (var i:int = numChildren - 1; i >= 0; i--) {
 				var screen:Screen = getChildAt(i) as Screen;
 				if (screen.hasOwnProperty(handler))
@@ -107,7 +107,7 @@ package shooter {
 
 		public function advanceTime(time:Number):void {
 			camera.update(time);
-			handleMessage("update", time);
+			broadcastMessage("update", time);
 		}
 	}
 }
