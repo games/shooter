@@ -24,12 +24,16 @@ package threeshooter.dungeonadventure {
 
 		override protected function startup():void {
 			Tracer.debug("startup..");
-			Security.loadPolicyFile("xmlsocket://192.168.0.100:8443");
+			Security.loadPolicyFile("xmlsocket://192.168.0.100:4321");
 			replace(LoadingScreen);
 		}
 
 		private function newSocket():ISocket {
-			var socket:ISocket = MOCK ? new MockSocket() : new JsonSocket();
+			var socket:ISocket;
+			if (MOCK)
+				socket = new MockSocket();
+			else
+				socket = new JsonSocket();
 			socket.signals.ioError.add(socketIoErrorHandler);
 			socket.signals.data.add(socketDataHandler);
 			return socket;
