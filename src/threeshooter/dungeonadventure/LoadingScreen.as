@@ -25,7 +25,11 @@ package threeshooter.dungeonadventure {
 		}
 
 		override public function enter():void {
+			socket.signals.connect.addOnce(function():void {
+				socket.send({kind: "auth"});
+			});
 			socket.connect("192.168.0.100", 1234);
+
 		}
 
 		public function handleAuth():void {

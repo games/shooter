@@ -24,7 +24,7 @@ package threeshooter.dungeonadventure {
 
 		override protected function startup():void {
 			Tracer.debug("startup..");
-			Security.loadPolicyFile("xmlsocket://192.168.0.100:8443");
+			Security.loadPolicyFile("xmlsocket://192.168.0.100:4321");
 			replace(LoadingScreen);
 		}
 

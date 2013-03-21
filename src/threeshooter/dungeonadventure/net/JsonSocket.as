@@ -20,7 +20,7 @@ package threeshooter.dungeonadventure.net {
 
 		override public function send(object:*):void {
 			var data:String = JSON.stringify(object);
-			Tracer.debug("SEND    > ", data);
+			Tracer.debug("SEND    >> ", data);
 			super.send(data);
 		}
 
