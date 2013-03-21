@@ -26,8 +26,13 @@ package threeshooter.dungeonadventure.mock {
 
 		public function send(object:*):void {
 			Tracer.debug("SEND    >> ", JSON.stringify(object));
-			if (object.kind == "auth") {
-				notify({kind: "authsucceed", content: {name: "valorzhong", strength: 10, defense: 10, tenacity: 5, hp: 100, agility: 8}});
+			switch (object.kind) {
+				case "auth":
+					notify({kind: "authsucceed", content: {name: "valorzhong", strength: 10, defense: 10, tenacity: 5, hp: 100, agility: 8}});
+					break;
+				case "enterdungeon":
+					notify({kind: "enterdungeonsucceed", content: {cols: 32, rows: 32, start: {x: 5, y: 5}, end: {x: 18, y: 20}}});
+					break;
 			}
 		}
 

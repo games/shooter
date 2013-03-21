@@ -14,7 +14,7 @@ package threeshooter.dungeonadventure {
 		}
 
 		override public function enter():void {
-
+			
 		}
 	}
 }
