@@ -2,21 +2,22 @@ package threeshooter.dungeonadventure {
 	import flash.events.DataEvent;
 	import flash.events.IOErrorEvent;
 	import flash.system.Security;
-
+	
 	import shooter.Game;
 	import shooter.Tracer;
-
+	
 	import threeshooter.dungeonadventure.mock.MockSocket;
 	import threeshooter.dungeonadventure.net.ISocket;
 	import threeshooter.dungeonadventure.net.JsonSocket;
 
 	public class DungeonAdventure extends Game {
 
-		private const MOCK:Boolean = false;
+		private const MOCK:Boolean = true;
 
 		override protected function initialize():void {
 			injector.map(LoadingScreen);
 			injector.map(LobbyScreen);
+			injector.map(DungeonScreen);
 			injector.map(ISocket).toValue(newSocket());
 
 			enableTouchHandler();

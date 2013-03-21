@@ -31,7 +31,10 @@ package threeshooter.dungeonadventure.mock {
 					notify({kind: "authsucceed", content: {name: "valorzhong", strength: 10, defense: 10, tenacity: 5, hp: 100, agility: 8}});
 					break;
 				case "enterdungeon":
-					notify({kind: "enterdungeonsucceed", content: {cols: 32, rows: 32, start: {x: 5, y: 5}, end: {x: 18, y: 20}}});
+					notify({kind: "enterdungeonsucceed", content: {col: 32, row: 32, start: {x: 5, y: 5}, end: {x: 18, y: 20}}});
+					break;
+				case "open":
+					notify({kind: "opensucceed", content: {type: "monster", x: object.x, y: object.y, data: {name: "simon", strength: 10, defense: 10, tenacity: 5, hp: 5, agility: 8}}});
 					break;
 			}
 		}

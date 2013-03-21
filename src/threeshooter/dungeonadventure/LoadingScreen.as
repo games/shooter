@@ -39,7 +39,7 @@ package threeshooter.dungeonadventure {
 
 		public function handleAuthsucceed(content:Object):void {
 			injector.map(User).toValue(User.parse(content));
-			game.replace(LobbyScreen);
+			game.replace(DungeonScreen);
 		}
 
 		public function handleAuthfail():void {

@@ -33,9 +33,18 @@ package shooter.tilemaps {
 			addChild(tilesLayer);
 			addChild(itemsLayer);
 		}
+		
+		public function replace(x:int, y:int, kind:*):void{
+			this.data.layers[0].grid[y][x] = kind;
+			present = build;
+		}
 
 		public function stagePosToTilePos(x:int, y:int):Point {
 			return new Point(int((x + camera.viewport.x) / data.tileWidth), int((y + camera.viewport.y) / data.tileHeight));
+		}
+
+		public function tilePosToStagePos(x:int, y:int):Point {
+			return new Point((x + 0.5) * data.tileWidth, (y + 0.5) * data.tileHeight);
 		}
 
 		public function blocked(x:int, y:int):Boolean {
