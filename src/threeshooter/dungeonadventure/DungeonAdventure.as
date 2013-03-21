@@ -29,7 +29,11 @@ package threeshooter.dungeonadventure {
 		}
 
 		private function newSocket():ISocket {
-			var socket:ISocket = MOCK ? new MockSocket() : new JsonSocket();
+			var socket:ISocket;
+			if (MOCK)
+				socket = new MockSocket();
+			else
+				socket = new JsonSocket();
 			socket.signals.ioError.add(socketIoErrorHandler);
 			socket.signals.data.add(socketDataHandler);
 			return socket;
