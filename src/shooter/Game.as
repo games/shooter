@@ -16,6 +16,7 @@ package shooter {
 
 		public function Game() {
 			injector = new Injector();
+			injector.map(Injector).toValue(injector);
 			injector.map(Game).toValue(this);
 			injector.map(AssetManager).asSingleton();
 			injector.map(Camera).asSingleton();
