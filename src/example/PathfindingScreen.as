@@ -53,7 +53,7 @@ package example {
 
 			road = new Sprite();
 			addChild(road);
-			road.addChild(makeNode(5, 5, 0));
+			road.addChild(makeNode(5, 5, 0, ""));
 
 			start = new Point(5, 5);
 		}
@@ -66,20 +66,20 @@ package example {
 					var path:Array = Pathfinding.find(tileMap.data, start, pos);
 					road.removeChildren();
 					path.forEach(function(node:Object, i:int, arr:Array):void{
-						road.addChild(makeNode(node.x, node.y, i));
+						road.addChild(makeNode(node.x, node.y, i, node.direction));
 					});
 					start = pos;
 				}
 			}
 		}
 		
-		private function makeNode(x:int, y:int, i:int):Sprite{
+		private function makeNode(x:int, y:int, i:int, direction:String):Sprite{
 			var s:Sprite = new Sprite();
 			var quad:Quad = new Quad(32, 32, 0xff0000);
 			s.x = x * 32;
 			s.y = y * 32;
 			s.addChild(quad);
-			var t:TextField = new TextField(32, 20, i.toString());
+			var t:TextField = new TextField(32, 32, direction);
 			s.addChild(t);
 			return s;
 		}
