@@ -15,7 +15,7 @@ package shooter.tilemaps {
 		public var data:MapData;
 		public var renderer:MapRenderer;
 		public var assets:AssetManager;
-		public var tilesLayer:QuadBatch;
+		public var tilesLayer:Sprite;
 		public var itemsLayer:Sprite;
 		private var present:Function;
 
@@ -24,9 +24,8 @@ package shooter.tilemaps {
 			this.data = data;
 			this.renderer = renderer || new MapRenderer();
 			this.assets = assets;
-			tilesLayer = new QuadBatch();
+			tilesLayer = new Sprite();
 			itemsLayer = new Sprite();
-			tilesLayer.blendMode = BlendMode.NONE;
 			tilesLayer.touchable = false;
 			present = build;
 
