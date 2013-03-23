@@ -10,7 +10,7 @@ package threeshooter.dungeonadventure {
 		private var animations:Dictionary;
 		private var current:MovieClip;
 
-		public function Actor(... animations) {
+		public function Actor(animations:Array) {
 			this.animations = new Dictionary();
 			for each (var animation:MovieClip in animations)
 				this.animations[animation.name] = animation;

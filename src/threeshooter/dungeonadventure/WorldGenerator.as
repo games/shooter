@@ -40,8 +40,8 @@ package threeshooter.dungeonadventure {
 			return mapData;
 		}
 
-		public static function buildActor(assets:AssetManager):Actor {
-			return new Actor(
+		public static function buildCharacter(assets:AssetManager):Character {
+			return new Character(
 				buildMovieClip("down", assets, "Actor1", 0, 0, 32),
 				buildMovieClip("left", assets, "Actor1", 0, 1, 32),
 				buildMovieClip("right", assets, "Actor1", 0, 2, 32),
