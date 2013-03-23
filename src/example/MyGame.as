@@ -24,10 +24,10 @@ package example {
 //			push(ScreenSecond);
 //			push(ScreenTop);
 //			push(TileMapScreen);
-//			push(PathfindingScreen);
+			push(PathfindingScreen);
 //			replace(CameraFollowScreen);
 //			replace(ParticleScreen);
-			replace(DungeonScreen);
+//			replace(DungeonScreen);
 		}
 	}
 }

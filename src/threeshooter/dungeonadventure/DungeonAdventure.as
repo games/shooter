@@ -2,10 +2,10 @@ package threeshooter.dungeonadventure {
 	import flash.events.DataEvent;
 	import flash.events.IOErrorEvent;
 	import flash.system.Security;
-	
+
 	import shooter.Game;
 	import shooter.Tracer;
-	
+
 	import threeshooter.dungeonadventure.mock.MockSocket;
 	import threeshooter.dungeonadventure.net.ISocket;
 	import threeshooter.dungeonadventure.net.JsonSocket;
@@ -25,7 +25,7 @@ package threeshooter.dungeonadventure {
 
 		override protected function startup():void {
 			Tracer.debug("startup..");
-			Security.loadPolicyFile("xmlsocket://192.168.0.100:4321");
+			Security.loadPolicyFile("xmlsocket://" + Config.HOST + ":" + Config.POLICY_PORT);
 			replace(LoadingScreen);
 		}
 

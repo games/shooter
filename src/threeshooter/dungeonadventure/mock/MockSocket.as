@@ -5,11 +5,14 @@ package threeshooter.dungeonadventure.mock {
 	import org.osflash.signals.natives.sets.XMLSocketSignalSet;
 
 	import shooter.Tracer;
+	import shooter.tilemaps.MapData;
+	import shooter.tilemaps.TMXParser;
 
 	import threeshooter.dungeonadventure.net.ISocket;
 
 	public class MockSocket implements ISocket {
-
+		private const COLUMN:int = 20;
+		private const ROW:int = 20;
 		private var _signals:XMLSocketSignalSet;
 
 		public function MockSocket() {
@@ -26,21 +29,25 @@ package threeshooter.dungeonadventure.mock {
 
 		public function send(object:*):void {
 			Tracer.debug("SEND    >> ", JSON.stringify(object));
-			switch (object.kind) {
-				case "auth":
-					notify({kind: "authsucceed", content: {name: "valorzhong", strength: 10, defense: 10, tenacity: 5, hp: 100, agility: 8}});
-					break;
-				case "enterdungeon":
-					notify({kind: "enterdungeonsucceed", content: {col: 32, row: 32, start: {x: 5, y: 5}, end: {x: 18, y: 20}}});
-					break;
-				case "open":
-					notify({kind: "opensucceed", content: {type: "monster", x: object.x, y: object.y, data: {name: "simon", strength: 10, defense: 10, tenacity: 5, hp: 5, agility: 8}}});
-					break;
-			}
+			this["handle" + object.kind](object);
 		}
 
 		private function notify(obj:Object):void {
 			_signals.data.dispatch(new DataEvent(DataEvent.DATA, false, false, JSON.stringify(obj)));
+		}
+
+		public function handleauth(object:*):void {
+			notify({kind: "authsucceed", content: {name: "valorzhong", strength: 10, defense: 10, tenacity: 5, hp: 100, agility: 8}});
+		}
+
+		public function handleentermap(data:*):void {
+			notify({kind: "entermapsucceed", content: {col: COLUMN, row: ROW, tile: 32, start: {x: int(Math.random() * COLUMN), y: int(Math.random() * ROW)}, end: {x: int(Math.random() * COLUMN), y: int(Math.random() * ROW)}}});
+		}
+
+		public function handleopen(data:*):void {
+			var types:Array = ["monster", "empty", "item"];
+			var t:String = types[int(Math.random() * types.length)];
+			notify({kind: "opensucceed", content: {type: t, x: data.x, y: data.y, data: {name: "simon", strength: 10, defense: 10, tenacity: 5, hp: 5, agility: 8}}});
 		}
 	}
 }
