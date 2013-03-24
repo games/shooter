@@ -1,13 +1,15 @@
 package threeshooter.dungeonadventure {
 	import feathers.themes.AeonDesktopTheme;
-
+	
 	import flash.events.DataEvent;
 	import flash.events.IOErrorEvent;
 	import flash.system.Security;
-
+	
 	import shooter.Game;
 	import shooter.Tracer;
-
+	
+	import starling.core.Starling;
+	
 	import threeshooter.dungeonadventure.mock.MockSocket;
 	import threeshooter.dungeonadventure.net.ISocket;
 	import threeshooter.dungeonadventure.net.JsonSocket;
@@ -25,6 +27,8 @@ package threeshooter.dungeonadventure {
 			enableTouchHandler();
 
 			new AeonDesktopTheme(stage);
+			Starling.current.nativeStage.color = 0x000000;
+			Starling.current.stage.color = 0x000000;
 		}
 
 		override protected function startup():void {
@@ -48,7 +52,7 @@ package threeshooter.dungeonadventure {
 			Tracer.debug("MESSAGE >> ", e.data);
 			var msg:Object = JSON.parse(e.data);
 			var handler:String = "handle" + msg.kind.substr(0, 1).toUpperCase() + msg.kind.substr(1);
-			msg.content ? broadcastMessage(handler, msg.content) : broadcastMessage(handler);
+			msg.content != null ? broadcastMessage(handler, msg.content) : broadcastMessage(handler);
 		}
 	}
 }

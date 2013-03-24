@@ -1,13 +1,20 @@
 package threeshooter.dungeonadventure {
 	import flash.geom.Point;
 
+	import shooter.Actor;
 	import shooter.tilemaps.PathNode;
 
 	import starling.core.Starling;
 
+	import threeshooter.dungeonadventure.domain.User;
+
 	public class Character extends Actor {
-		public function Character(... animations) {
+
+		private var user:User;
+
+		public function Character(user:User, ... animations) {
 			super(animations);
+			this.user = user;
 		}
 
 		public function turnTo(direction:String):void {

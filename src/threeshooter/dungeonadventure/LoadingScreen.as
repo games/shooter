@@ -38,7 +38,8 @@ package threeshooter.dungeonadventure {
 			progressBar.y = Starling.current.viewPort.height >> 1;
 
 			assets.enqueue(
-				"assets/Actor1.png",
+				"assets/charactors/Actor1.png",
+				"assets/faces/Actor1Face.png",
 				"assets/Inside_A4.png", "assets/Inside_A5.png", "assets/Inside_B.png",
 				"assets/battlebacks/Cobblestones2.png", "assets/battlebacks/DirtCave.png",
 				"assets/battlebacks/Grassland.png", "assets/battlebacks/Mine.png",
@@ -47,12 +48,12 @@ package threeshooter.dungeonadventure {
 				"assets/monsters/Evilking.png",
 				"assets/monsters/Hornet.png",
 				"assets/monsters/Priest.png",
+				"assets/animations/Attack1.png",
+				"assets/animations/Attack2.png",
+				"assets/animations/Attack3.png",
 				"particle.pex", "particle.png");
 			assets.loadQueue(progressHandler);
 		}
-
-
-
 
 		private function progressHandler(ratio:Number):void {
 			progressBar.value = ratio;

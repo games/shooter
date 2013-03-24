@@ -1,23 +1,22 @@
 package threeshooter.dungeonadventure {
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
+
+	import org.swiftsuspenders.Injector;
 
 	import shooter.Camera;
+	import shooter.Game;
 	import shooter.Screen;
 	import shooter.Tracer;
-	import shooter.tilemaps.LayerDef;
 	import shooter.tilemaps.MapData;
 	import shooter.tilemaps.PathNode;
 	import shooter.tilemaps.Pathfinding;
-	import shooter.tilemaps.TileDef;
 	import shooter.tilemaps.TileMap;
 
-	import starling.animation.Tween;
 	import starling.core.Starling;
-	import starling.display.MovieClip;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.extensions.PDParticleSystem;
+	import starling.extensions.SpotlightFilter;
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 
@@ -34,6 +33,10 @@ package threeshooter.dungeonadventure {
 		public var assets:AssetManager;
 		[Inject]
 		public var camera:Camera;
+		[Inject]
+		public var game:Game;
+		[Inject]
+		public var injector:Injector;
 
 		[Embed(source = "../../../assets/particle.pex", mimeType = "application/octet-stream")]
 		private static const BlowUpConfig:Class;
@@ -43,6 +46,7 @@ package threeshooter.dungeonadventure {
 		private var tileMap:TileMap;
 		private var ps:PDParticleSystem;
 		private var player:Character;
+		private var hud:HUD;
 
 		public function DungeonScreen() {
 			super();
@@ -67,14 +71,24 @@ package threeshooter.dungeonadventure {
 			addChild(ps);
 			Starling.juggler.add(ps);
 
-			player = WorldGenerator.buildCharacter(assets);
+			player = WorldGenerator.buildCharacter(user, assets);
 			player.stop();
 			var pos:Point = tileMap.tilePosToStagePos(content.start.x, content.start.y);
 			player.x = pos.x - 16;
 			player.y = pos.y - 16;
 			tileMap.addItem(player);
 			Starling.juggler.add(player);
+
+			hud = new HUD(user, assets);
+			addChild(hud);
+
+//			tileMap.filter = new SpotlightFilter(player.x + 16, player.y + 16, 1, 1, 0.3);
 		}
+
+//		override public function update(elapse:Number):void {
+//			(tileMap.filter as SpotlightFilter).centerX = player.x + 16;
+//			(tileMap.filter as SpotlightFilter).centerY = player.y + 16;
+//		}
 
 		override public function handleTouchBegan(e:TouchEvent):void {
 			var touch:Touch = e.getTouch(stage);
@@ -107,6 +121,15 @@ package threeshooter.dungeonadventure {
 			var start:Point = tileMap.stagePosToTilePos(player.x, player.y);
 			var path:Array = Pathfinding.find(tileMap.data, start, new Point(content.x, content.y));
 			moveActor(path);
+		}
+
+		public function handleEnterbattle(content:Object):void {
+			var battle:BattleScreen = new BattleScreen();
+			injector.injectInto(battle);
+			battle.monsterDef = content;
+			battle.user = user;
+			battle.hud = hud;
+			game.push(battle);
 		}
 
 		private function moveActor(path:Array):void {

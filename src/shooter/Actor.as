@@ -1,4 +1,4 @@
-package threeshooter.dungeonadventure {
+package shooter {
 	import flash.utils.Dictionary;
 
 	import starling.animation.IAnimatable;
