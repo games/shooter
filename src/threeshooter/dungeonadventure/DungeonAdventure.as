@@ -1,4 +1,6 @@
 package threeshooter.dungeonadventure {
+	import feathers.themes.AeonDesktopTheme;
+
 	import flash.events.DataEvent;
 	import flash.events.IOErrorEvent;
 	import flash.system.Security;
@@ -21,6 +23,8 @@ package threeshooter.dungeonadventure {
 			injector.map(ISocket).toValue(newSocket());
 
 			enableTouchHandler();
+
+			new AeonDesktopTheme(stage);
 		}
 
 		override protected function startup():void {

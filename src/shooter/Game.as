@@ -1,10 +1,11 @@
 package shooter {
 	import org.swiftsuspenders.Injector;
-	
+
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.errors.AbstractMethodError;
+	import starling.events.Event;
 	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
@@ -15,6 +16,11 @@ package shooter {
 		private var camera:Camera;
 
 		public function Game() {
+			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+		}
+
+		private function addedToStageHandler(e:Event):void {
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			injector = new Injector();
 			injector.map(Injector).toValue(injector);
 			injector.map(Game).toValue(this);
@@ -39,7 +45,7 @@ package shooter {
 		protected function enableUpdate():void {
 			Starling.current.juggler.add(this);
 		}
-		
+
 		protected function disableUpdate():void {
 			Starling.current.juggler.remove(this);
 		}
@@ -73,7 +79,8 @@ package shooter {
 		private function touchHandler(e:TouchEvent):void {
 			var touch:Touch = e.getTouch(stage);
 			if (touch)
-				broadcastMessage("handleTouch" + touch.phase.charAt(0).toUpperCase() + touch.phase.substr(1), e);
+				broadcastMessage("handleTouch" + touch.phase.charAt(0).toUpperCase() + touch.phase.substr(1),
+					e);
 
 		}
 
