@@ -1,5 +1,6 @@
 package threeshooter.dungeonadventure {
 	import flash.geom.Point;
+	import flash.media.SoundChannel;
 
 	import org.swiftsuspenders.Injector;
 
@@ -47,13 +48,23 @@ package threeshooter.dungeonadventure {
 		private var ps:PDParticleSystem;
 		private var player:Character;
 		private var hud:HUD;
+		private var backgroundMusic:SoundChannel;
 
 		public function DungeonScreen() {
 			super();
 		}
 
 		override public function enter():void {
-			socket.send({kind: "entermap", map: 10});
+			socket.send({kind: "entermap", players: 3, theme: 1, level: 5});
+		}
+
+		override public function focus():void {
+			backgroundMusic = assets.playSound("Dungeon1");
+		}
+
+		override public function unfocus():void {
+			backgroundMusic.stop();
+			backgroundMusic = null;
 		}
 
 		public function handleEntermapsucceed(content:Object):void {

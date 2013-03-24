@@ -1,6 +1,6 @@
 package shooter {
 	import org.swiftsuspenders.Injector;
-
+	
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -100,17 +100,28 @@ package shooter {
 		}
 
 		public function push(instanceOrClass:*):void {
+			if (numChildren > 0)
+				focusScreen.unfocus();
 			var instance:Screen = instanceOrClass is Class ? injector.getInstance(instanceOrClass) : instanceOrClass;
 			addChild(instance);
 			instance.enter();
+			instance.focus();
 		}
 
 		public function pop():Boolean {
 			if (numChildren > 0) {
-				(removeChildAt(numChildren - 1) as Screen).exit();
+				var scr:Screen = removeChildAt(numChildren - 1) as Screen;
+				scr.unfocus();
+				scr.exit();
+				if (numChildren > 0)
+					focusScreen.focus();
 				return true;
 			}
 			return false;
+		}
+
+		public function get focusScreen():Screen {
+			return getChildAt(numChildren - 1) as Screen;
 		}
 
 		public function advanceTime(time:Number):void {

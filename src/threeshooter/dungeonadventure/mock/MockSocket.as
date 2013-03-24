@@ -101,7 +101,7 @@ package threeshooter.dungeonadventure.mock {
 					damage = 0;
 				}
 				defenser.hp -= damage;
-				var skill:String = "Attack" + RandomUtils.getInt(13, 1);
+				var skill:String = "Attack" + RandomUtils.getInt(4, 1);
 				if (attacker === player)
 					notify({kind: "attack", content: {skill: skill, damage: damage}});
 				else

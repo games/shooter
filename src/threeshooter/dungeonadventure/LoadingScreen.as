@@ -51,7 +51,10 @@ package threeshooter.dungeonadventure {
 				"assets/animations/Attack1.png",
 				"assets/animations/Attack2.png",
 				"assets/animations/Attack3.png",
-				"particle.pex", "particle.png");
+				"assets/sounds/Dungeon1.mp3",
+				"assets/sounds/Attack1.mp3",
+				"assets/sounds/Battle1.mp3",
+				"assets/sounds/Miss.mp3");
 			assets.loadQueue(progressHandler);
 		}
 

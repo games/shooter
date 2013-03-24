@@ -34,21 +34,12 @@ package shooter.utils {
 						Starling.current.juggler.tween(target, 0.3, {scaleX: 1, scaleY: 1});
 					}});
 		}
-		
-		public static function toUp(target:Object):void {
-			Starling.current.juggler.tween(target, 0.2, {y: target.y - 20,
-				repeatCount: 2,
-				onComplete: function():void {
-					Starling.current.juggler.tween(target, 0.3, {y: target.y + 20});
-				}});
-		}
-		
-		public static function toDown(target:Object):void {
-			Starling.current.juggler.tween(target, 0.2, {y: target.y + 20,
-				repeatCount: 2,
-				onComplete: function():void {
-					Starling.current.juggler.tween(target, 0.3, {y: target.y - 20});
-				}});
+
+		public static function miss(target:Object):void {
+			Starling.current.juggler.tween(target, 0.2, {x: target.x - 100,
+					onComplete: function():void {
+						Starling.current.juggler.tween(target, 0.2, {x: target.x + 100, delay: 0.5});
+					}});
 		}
 
 	}

@@ -1,17 +1,20 @@
 package threeshooter.dungeonadventure {
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	
 	import shooter.Effect;
 	import shooter.Game;
 	import shooter.Screen;
 	import shooter.utils.RandomUtils;
 	import shooter.utils.TweenUtils;
-
+	
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.filters.BlurFilter;
 	import starling.text.TextField;
 	import starling.utils.AssetManager;
-
+	
 	import threeshooter.dungeonadventure.domain.User;
 
 	public class BattleScreen extends Screen {
@@ -28,6 +31,9 @@ package threeshooter.dungeonadventure {
 		private var monster:Image;
 		private var player:Image;
 		private var messages:Sprite;
+		private var backgroundMusic:SoundChannel;
+		private var attackSound:SoundChannel;
+		private var missSound:SoundChannel;
 
 		public function BattleScreen() {
 			super();
@@ -50,6 +56,18 @@ package threeshooter.dungeonadventure {
 
 			messages = new Sprite();
 			addChild(messages);
+		}
+
+		override public function focus():void {
+			backgroundMusic = assets.playSound("Battle1");
+			var transform:SoundTransform = backgroundMusic.soundTransform;
+			transform.volume = 0.5;
+			backgroundMusic.soundTransform = transform;
+		}
+
+		override public function unfocus():void {
+			backgroundMusic.stop();
+			backgroundMusic = null;
 		}
 
 		private function showMessage(message:String, y:int, color:uint = 0xff0000, complete:Function = null):void {
@@ -78,24 +96,44 @@ package threeshooter.dungeonadventure {
 			addChild(effect);
 		}
 
+		private function playMiss():void {
+			if (missSound)
+				missSound.stop();
+			missSound = assets.playSound("Miss", 0, 1);
+		}
+		
+		private function playHit():void{
+			if (attackSound)
+				attackSound.stop();
+			attackSound = assets.playSound("Attack1", 0, 1);
+		}
+
 		public function handleAttack(content:Object):void {
-			TweenUtils.flash(monster);
+			showAttachEffect(content.skill, monster.x, monster.y);
 			if (content.damage > 0) {
+				TweenUtils.flash(monster);
 				showMessage("- " + content.damage, monster.y, 0xff0000);
-				showAttachEffect(content.skill, monster.x, monster.y);
-			} else
+				playHit();
+			} else {
+				TweenUtils.miss(monster);
 				showMessage("MISS!", monster.y, 0x00cc00);
+				playMiss();
+			}
 		}
 
 		public function handleDefense(content:Object):void {
+			showAttachEffect(content.skill, player.x, player.y);
 			user.hp -= content.damage;
-			TweenUtils.shake(hud);
-			TweenUtils.flash(player);
 			if (content.damage > 0) {
+				TweenUtils.shake(hud);
+				TweenUtils.flash(player);
 				showMessage("- " + content.damage, player.y, 0xff0000);
-				showAttachEffect(content.skill, player.x, player.y);
-			} else
+				playHit();
+			} else {
+				TweenUtils.miss(player);
 				showMessage("MISS!", player.y, 0x00cc00);
+				playMiss();
+			}
 		}
 
 		public function handleWin(reward:Object):void {

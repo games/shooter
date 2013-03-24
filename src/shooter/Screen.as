@@ -20,6 +20,14 @@ package shooter {
 
 		}
 
+		public function focus():void {
+
+		}
+
+		public function unfocus():void {
+
+		}
+
 		public function handleTouchMoved(e:TouchEvent):void {
 
 		}
