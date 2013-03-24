@@ -34,11 +34,7 @@ package threeshooter.dungeonadventure {
 		}
 
 		private function newSocket():ISocket {
-			var socket:ISocket;
-			if (MOCK)
-				socket = new MockSocket();
-			else
-				socket = new JsonSocket();
+			var socket:ISocket = MOCK ? new MockSocket() : new JsonSocket();
 			socket.signals.ioError.add(socketIoErrorHandler);
 			socket.signals.data.add(socketDataHandler);
 			return socket;
@@ -52,10 +48,7 @@ package threeshooter.dungeonadventure {
 			Tracer.debug("MESSAGE >> ", e.data);
 			var msg:Object = JSON.parse(e.data);
 			var handler:String = "handle" + msg.kind.substr(0, 1).toUpperCase() + msg.kind.substr(1);
-			if (msg.content)
-				broadcastMessage(handler, msg.content);
-			else
-				broadcastMessage(handler);
+			msg.content ? broadcastMessage(handler, msg.content) : broadcastMessage(handler);
 		}
 	}
 }
