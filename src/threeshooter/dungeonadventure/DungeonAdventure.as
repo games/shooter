@@ -1,5 +1,6 @@
 package threeshooter.dungeonadventure {
 	import feathers.themes.AeonDesktopTheme;
+	import feathers.themes.MetalWorksMobileTheme;
 	
 	import flash.events.DataEvent;
 	import flash.events.IOErrorEvent;
@@ -22,11 +23,12 @@ package threeshooter.dungeonadventure {
 			injector.map(LoadingScreen);
 			injector.map(LobbyScreen);
 			injector.map(DungeonScreen);
+			injector.map(HomeScreen);
 			injector.map(ISocket).toValue(newSocket());
 
 			enableTouchHandler();
 
-			new AeonDesktopTheme(stage);
+			new MetalWorksMobileTheme(stage);
 			Starling.current.nativeStage.color = 0x000000;
 			Starling.current.stage.color = 0x000000;
 		}

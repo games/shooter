@@ -75,6 +75,14 @@ package threeshooter.dungeonadventure {
 				new Rectangle(x * 96, y * 96, 96, 96)));
 		}
 
+		public static function buildAvatar(user:User, assets:AssetManager):Image {
+			var avatarName:String = ["Grappler_m", "Grappler_f",
+				"Hero_m", "Hero_f",
+				"Delf_f", "Delf_m",
+				"Wizard_m", "Wizard_f"][user.avatar];
+			return new Image(assets.getTexture(avatarName));
+		}
+
 		public static function buildAnimation(assets:AssetManager, name:String, tile:int = 192):Effect {
 			var texture:Texture = assets.getTexture(name);
 			var x:int = texture.width / tile;

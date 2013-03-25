@@ -40,14 +40,26 @@ package threeshooter.dungeonadventure {
 			assets.enqueue(
 				"assets/charactors/Actor1.png",
 				"assets/faces/Actor1Face.png",
-				"assets/Inside_A4.png", "assets/Inside_A5.png", "assets/Inside_B.png",
-				"assets/battlebacks/Cobblestones2.png", "assets/battlebacks/DirtCave.png",
-				"assets/battlebacks/Grassland.png", "assets/battlebacks/Mine.png",
-				"assets/monsters/Thief_m.png",
+				"assets/Inside_A5.png", 
+				
+				"assets/battlebacks/Forest1.png", 
+				"assets/battlebacks/Grassland.png", 
+				
+				"assets/monsters/Skeleton.png",
 				"assets/monsters/Bat.png",
 				"assets/monsters/Evilking.png",
 				"assets/monsters/Hornet.png",
 				"assets/monsters/Priest.png",
+				
+				"assets/monsters/Grappler_m.png",
+				"assets/monsters/Grappler_f.png",
+				"assets/monsters/Hero_m.png",
+				"assets/monsters/Hero_f.png",
+				"assets/monsters/Delf_m.png",
+				"assets/monsters/Delf_f.png",
+				"assets/monsters/Wizard_m.png",
+				"assets/monsters/Wizard_f.png",
+				
 				"assets/animations/Attack1.png",
 				"assets/animations/Attack2.png",
 				"assets/animations/Attack3.png",
@@ -78,7 +90,7 @@ package threeshooter.dungeonadventure {
 
 		public function handleAuthsucceed(content:Object):void {
 			injector.map(User).toValue(User.parse(content));
-			game.replace(DungeonScreen);
+			game.replace(HomeScreen);
 		}
 
 		public function handleAuthfail():void {

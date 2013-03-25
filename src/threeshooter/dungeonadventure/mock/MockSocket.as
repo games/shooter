@@ -67,7 +67,7 @@ package threeshooter.dungeonadventure.mock {
 			notify({kind: "opensucceed", content: {type: t, x: data.x, y: data.y}});
 			if (t == "monster") {
 				var monster:Object = {name: "simon",
-						kind: RandomUtils.take(["Thief_m", "Bat", "Evilking", "Hornet", "Priest"]),
+						kind: RandomUtils.take(["Skeleton", "Bat", "Evilking", "Hornet", "Priest"]),
 						strength: 2000, defense: 400, tenacity: 5, hp: 3000, agility: 8};
 				notify({kind: "enterbattle", content: monster});
 				startBattle(monster);
