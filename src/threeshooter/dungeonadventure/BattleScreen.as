@@ -47,9 +47,9 @@ package threeshooter.dungeonadventure {
 			monster.pivotY = monster.height >> 1;
 			addChild(monster);
 
-			player = WorldGenerator.buildFace(user, assets);
+			player = WorldGenerator.buildAvatar(user, assets);
 			player.x = Starling.current.viewPort.width >> 1;
-			player.y = Starling.current.viewPort.height - player.height - 80;
+			player.y = Starling.current.viewPort.height - player.height - 30;
 			player.pivotX = player.width >> 1;
 			player.pivotY = player.height >> 1;
 			addChild(player);
