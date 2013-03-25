@@ -1,14 +1,14 @@
 package threeshooter.dungeonadventure {
 	import feathers.controls.Button;
-
+	
 	import shooter.Game;
 	import shooter.Screen;
-
+	
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
-
+	
 	import threeshooter.dungeonadventure.domain.User;
 
 	public class HomeScreen extends Screen {
@@ -51,7 +51,7 @@ package threeshooter.dungeonadventure {
 		}
 
 		private function enterGrasslandsHandler(e:Event):void {
-			game.replace(DungeonScreen);
+			game.replace(LobbyScreen);
 		}
 	}
 }

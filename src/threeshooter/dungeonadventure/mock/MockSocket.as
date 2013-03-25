@@ -55,6 +55,64 @@ package threeshooter.dungeonadventure.mock {
 			notify({kind: "authsucceed", content: player});
 		}
 
+		public function handleenterlobby(data:*):void {
+			notify({kind: "teams", content: [
+					{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7},
+						{id: 1, name: "Team Of Simon", players: 5, total: 8, lock: false, avatar: 0},
+						{id: 2, name: "Team Of Valorzhong", players: 5, total: 8, lock: true, avatar: 3},
+						{id: 3, name: "Team Of Jacy", players: 5, total: 8, lock: false, avatar: 7}
+					]});
+		}
+
+		public function handleteaminfo(data:*):void {
+			var len:int = RandomUtils.getInt(8, 1);
+			var players:Array = [];
+			for (var i:int = 0; i < len; i++) {
+				players.push({name: RandomUtils.take(["valorzhong", "simon", "frank", "jacy", "vincent"]),
+						avatar: RandomUtils.getInt(8, 1)});
+			}
+			notify({kind: "teaminfo", content: players});
+		}
+
 		public function handleentermap(data:*):void {
 			notify({kind: "entermapsucceed", content: {col: COLUMN, row: ROW, tile: 32, start: {x: int(Math.random() * COLUMN),
 							y: int(Math.random() * ROW)}, end: {x: int(Math.random() * COLUMN), y: int(Math.random() * ROW)}}});

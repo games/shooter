@@ -69,10 +69,14 @@ package threeshooter.dungeonadventure {
 		}
 
 		public static function buildFace(user:User, assets:AssetManager):Image {
-			var x:int = user.avatar % 4;
-			var y:int = user.avatar / 2;
-			return new Image(Texture.fromTexture(assets.getTexture("Actor1Face"),
-				new Rectangle(x * 96, y * 96, 96, 96)));
+			return new Image(getFaceTexture(user.avatar, assets));
+		}
+
+		public static function getFaceTexture(avatar:int, assets:AssetManager):Texture {
+			var x:int = avatar % 4;
+			var y:int = avatar / 4;
+			return Texture.fromTexture(assets.getTexture("Actor1Face"),
+				new Rectangle(x * 96, y * 96, 96, 96));
 		}
 
 		public static function buildAvatar(user:User, assets:AssetManager):Image {
