@@ -93,13 +93,7 @@ package threeshooter.dungeonadventure {
 			hud = new HUD(user, assets);
 			addChild(hud);
 
-//			tileMap.filter = new SpotlightFilter(player.x + 16, player.y + 16, 1, 1, 0.3);
 		}
-
-//		override public function update(elapse:Number):void {
-//			(tileMap.filter as SpotlightFilter).centerX = player.x + 16;
-//			(tileMap.filter as SpotlightFilter).centerY = player.y + 16;
-//		}
 
 		override public function handleTouchBegan(e:TouchEvent):void {
 			var touch:Touch = e.getTouch(stage);

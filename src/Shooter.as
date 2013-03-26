@@ -18,7 +18,7 @@ package {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 
-			var star:Starling = new Starling(DungeonAdventure, stage);
+			var star:Starling = new Starling(MyGame, stage);
 			star.showStats = true;
 			star.showStatsAt("right");
 			star.start();
